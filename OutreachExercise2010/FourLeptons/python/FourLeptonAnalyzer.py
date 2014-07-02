@@ -1,6 +1,6 @@
 import itertools
 
-from OutreachExercise2010.FourLeptons.Analyzer import *
+from OutreachExercise2010.FourLeptons.Analyzer import Analyzer, DiObject
 
 
 class FourLeptonAnalyzer(Analyzer):
@@ -11,10 +11,12 @@ class FourLeptonAnalyzer(Analyzer):
     def __init__(self):
         super(FourLeptonAnalyzer, self).__init__()
 
-    #####CHANGE THIS METHOD TO CHANGE MUON ID######    
+    #####CHANGE THIS METHOD TO CHANGE MUON ID######
     def muonID(self, muon, vertex):
         return True
-        #if not (muon.isPFMuon() and (muon.isGlobalMuon() or muon.isTrackerMuon())): # There are not PF muons on 2010 data! Only Global and Tracker muon
+        # if not (muon.isPFMuon() and (muon.isGlobalMuon() or
+        #                              muon.isTrackerMuon())):
+        # There are not PF muons on 2010 data! Only Global and Tracker muon
         if not (muon.isGlobalMuon() and muon.isTrackerMuon()):
             return False
         # higher-pt?
@@ -24,18 +26,22 @@ class FourLeptonAnalyzer(Analyzer):
         if abs(muon.vertex().z() - vertex.z()) > 0.2:
             return False
         # OLD_Soft_Muon_selection_being_ph
-        # The dB() method of the pat::Muon uses the version in IPTools, 
-        # so there are tiny differences between the values returned by dxy(vertex->position()) and dB().
+        # The dB() method of the pat::Muon uses the version in IPTools,
+        # so there are tiny differences between the values returned by
+        # dxy(vertex->position()) and dB().
         # impact paramter dxy -> dB (w/ error edB) or ip (w/ error eip)
-        #if muon.innerTrack().dxy( vertex.position() )>0.02: # Impact parameter
-        #    return False
         # Impact parameter
+        #if muon.innerTrack().dxy(vertex.position()) > 0.02:
+        #    return False
         if muon.dB(muon.PV3D) > 0.02:
             return False
-        # muon ISO variable # For 2010: I_trk + I_ECAL + I_HCAL
-        #if (muon.chargedHadronIso()+max(0.0,muon.photonIso()+muon.neutralHadronIso()-0.5*muon.puChargedHadronIso()))/muon.pt()>0.6:
+        # muon ISO variable
+        #if (muon.chargedHadronIso() +
+        #        max(0.0, muon.photonIso() + muon.neutralHadronIso() -
+        #            0.5 * muon.puChargedHadronIso())) / muon.pt() > 0.6:
+        # For 2010: I_trk + I_ECAL + I_HCAL
         # W&Z cross-section (2.9 pb-1)
-        if (muon.isolationR03().sumPt + 
+        if (muon.isolationR03().sumPt +
                 muon.isolationR03().emEt +
                 muon.isolationR03().hadEt) / muon.pt() > 0.15:
             return False
@@ -50,28 +56,36 @@ class FourLeptonAnalyzer(Analyzer):
             return False
 
         return True
-    
-    #####CHANGE THIS METHOD TO CHANGE ELECTRON ID######    
-    def electronID(self,electron,vertex):
+
+    #####CHANGE THIS METHOD TO CHANGE ELECTRON ID######
+    def electronID(self, electron, vertex):
         return True
         if electron.pt() < 7 or abs(electron.eta()) > 2.5:
             return False
 
-        #mvaRegions = [{'ptMin':0,'ptMax':10, 'etaMin':0.0, 'etaMax':0.8,'mva':0.47},\
-        #              {'ptMin':0,'ptMax':10, 'etaMin':0.8 ,'etaMax':1.479,'mva':0.004},\
-        #              {'ptMin':0,'ptMax':10, 'etaMin':1.479, 'etaMax':3.0,'mva':0.295},\
-        #              {'ptMin':10,'ptMax':99999999, 'etaMin':0.0, 'etaMax':0.8,'mva':-0.34},\
-        #              {'ptMin':10,'ptMax':99999999, 'etaMin':0.8, 'etaMax':1.479,'mva':-0.65},\
-        #              {'ptMin':10,'ptMax':99999999, 'etaMin':1.479, 'etaMax':3.0,'mva':0.6}]
-        #ID=False 
-        #for element in mvaRegions:
-        #    if electron.pt()>= element['ptMin'] and \
-        #       electron.pt()< element['ptMax'] and \
-        #       abs(electron.superCluster().eta())>=element['etaMin'] and \
-        #       abs(electron.superCluster().eta())<element['etaMax'] and \ 
-        #       electron.electronID("mvaNonTrigV0")> element['mva']: # "mvaNonTrigV0" not in 2010 data
-        #        ID=True
-        #if not ID:
+        #mvaRegions = [{'ptMin': 0, 'ptMax': 10, 'etaMin': 0.0,
+        #               'etaMax': 0.8, 'mva': 0.47},
+        #              {'ptMin': 0, 'ptMax': 10, 'etaMin': 0.8,
+        #               'etaMax': 1.479, 'mva': 0.004},
+        #              {'ptMin': 0, 'ptMax': 10, 'etaMin': 1.479,
+        #               'etaMax': 3.0, 'mva': 0.295},
+        #              {'ptMin': 10, 'ptMax': 99999999, 'etaMin': 0.0,
+        #               'etaMax': 0.8, 'mva': -0.34},
+        #              {'ptMin': 10, 'ptMax': 99999999, 'etaMin': 0.8,
+        #               'etaMax': 1.479, 'mva': -0.65},
+        #              {'ptMin': 10, 'ptMax': 99999999, 'etaMin': 1.479,
+        #               'etaMax': 3.0, 'mva': 0.6},
+        #              ]
+        #ID = False
+        #for region in mvaRegions:
+        #    if electron.pt() >= region['ptMin'] and \
+        #       electron.pt() < region['ptMax'] and \
+        #       abs(electron.superCluster().eta()) >= region['etaMin'] and \
+        #       abs(electron.superCluster().eta()) < region['etaMax'] and \
+        #       electron.electronID("mvaNonTrigV0") > region['mva']:
+        #       # "mvaNonTrigV0" not in 2010 data
+        #        ID = True
+        ##if not ID:
 
         #SimpleCutBasedEleId electron.electronID()
 
@@ -81,30 +95,32 @@ class FourLeptonAnalyzer(Analyzer):
             return False
 
         # electron ISO variable # For 2010: I_trk & I_ECAL & I_HCAL
-        #if (electron.chargedHadronIso()+max(0.0,electron.photonIso()+electron.neutralHadronIso()-0.5*electron.puChargedHadronIso()))/electron.pt()>0.6:
+        #if (electron.chargedHadronIso() + max(0.0,
+        #        electron.photonIso() + electron.neutralHadronIso() -
+        #        0.5 * electron.puChargedHadronIso())) / electron.pt() > 0.6:
         # barrel regions:
         if abs(electron.eta()) < 1.44:
-             if electron.dr03TkSumPt() / electron.pt() > 0.09:
-                 return False
-             if electron.dr03EcalRecHitSumEt() / electron.pt() > 0.07:
-                 return False
-             if electron.dr03HcalTowerSumEt() / electron.pt() > 0.10: 
-                 return False
+            if electron.dr03TkSumPt() / electron.pt() > 0.09:
+                return False
+            if electron.dr03EcalRecHitSumEt() / electron.pt() > 0.07:
+                return False
+            if electron.dr03HcalTowerSumEt() / electron.pt() > 0.10:
+                return False
         # endcap regions:
-        if abs(electron.eta()) > 1.57: # excluded the region btw 1.44 and 1.57 (W&Z cross-section 2.9 pb-1)
-             if electron.dr03TkSumPt() / electron.pt() > 0.04:
-                 return False
-             if electron.dr03EcalRecHitSumEt() / electron.pt() > 0.05:
-                 return False
-             if electron.dr03HcalTowerSumEt()/ electron.pt() > 0.025: 
-                 return False
+        # excluded the region btw 1.44 and 1.57 (W&Z cross-section 2.9 pb-1)
+        if abs(electron.eta()) > 1.57:
+            if electron.dr03TkSumPt() / electron.pt() > 0.04:
+                return False
+            if electron.dr03EcalRecHitSumEt() / electron.pt() > 0.05:
+                return False
+            if electron.dr03HcalTowerSumEt() / electron.pt() > 0.025:
+                return False
 
         # electron SIP variable
         if (electron.dB(2) / electron.edB(2)) > 8:
-            return False 
+            return False
 
         return True
-
 
     def select_zcandidates(self, box):
         zcandidates = []
@@ -122,12 +138,12 @@ class FourLeptonAnalyzer(Analyzer):
             zcandidates.append(z)
         return zcandidates
 
-    #####ANALYSIS######    
+    #####ANALYSIS######
     def analyze(self, box):
 
         #####START FROM A bOX CONTAINING SELECTED MUONS AND ELECTRONS and MAKE
         #####FOUR LEPTON CANDIDATES
-        
+
         # Now check if there are at least four leptons:
         box.leptons = set(box.selectedMuons + box.selectedElectrons)
         if len(box.leptons) < 4:
@@ -143,9 +159,9 @@ class FourLeptonAnalyzer(Analyzer):
         sortedZs = sorted(box.zcandidates,
                           key=lambda x: abs(x.mass() - 91.118))
         box.Z1 = sortedZs[0]
-        
+
         # now remove the used leptons from the list and make Z2 pairs
-        box.leptons.remove(box.Z1.l1)        
+        box.leptons.remove(box.Z1.l1)
         box.leptons.remove(box.Z1.l2)
 
         # now the same thing with the second
@@ -156,7 +172,7 @@ class FourLeptonAnalyzer(Analyzer):
         # OK if there are more than one Z candidates
         # pick the one with the highest lepton pt sum
         sortedZ2s = sorted(box.zcandidates2,
-                           key=lambda x: x.l1.pt() +x.l2.pt(), reverse=True)
+                           key=lambda x: x.l1.pt() + x.l2.pt(), reverse=True)
         box.Z2 = sortedZ2s[0]
 
         # kill the candidate if a OS pair has mll<4 GeV
@@ -166,9 +182,9 @@ class FourLeptonAnalyzer(Analyzer):
             if (l1.charge() + l2.charge()) == 0:
                 if ll.mass() < 4:
                     return False
-       
+
         # create the ZZ
-        box.ZZ = DiObject(box.Z1,box.Z2)
+        box.ZZ = DiObject(box.Z1, box.Z2)
         return True
 
     def declareHistos(self):
@@ -183,7 +199,7 @@ class FourLeptonAnalyzer(Analyzer):
     def fillHistos(self, box, sample, weight=1):
         super(FourLeptonAnalyzer, self).fillHistos(box, sample, weight)
 
-        self.fillHisto('mass', sample, box.ZZ.mass(), weight)        
-        self.fillHisto('massFull', sample, box.ZZ.mass(), weight)        
-        self.fillHisto('massZ1', sample, box.ZZ.l1.mass(), weight)        
-        self.fillHisto('massZ2', sample, box.ZZ.l2.mass(), weight)                
+        self.fillHisto('mass', sample, box.ZZ.mass(), weight)
+        self.fillHisto('massFull', sample, box.ZZ.mass(), weight)
+        self.fillHisto('massZ1', sample, box.ZZ.l1.mass(), weight)
+        self.fillHisto('massZ2', sample, box.ZZ.l2.mass(), weight)

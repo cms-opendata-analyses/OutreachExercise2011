@@ -4,4 +4,3 @@ class Sample(object):
         self.files = files
         self.isMC = isMC
         self.crossSection = crossSection
-    
