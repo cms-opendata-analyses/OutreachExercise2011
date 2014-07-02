@@ -152,9 +152,6 @@ void setTDRStyle()
 	tdrStyle->cd();
 }
 
-
-
-
 void tdrstyle() {
   setTDRStyle();
 }

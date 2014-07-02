@@ -8,6 +8,6 @@ analyzer = FourLeptonAnalyzer()
 analyzer.declareHistos()
 
 for sample in sources:
-    analyzer.processSample(sample,5000)
+    analyzer.processSample(sample, 5000)
 
 analyzer.exportData()
