@@ -2,6 +2,7 @@ from DataFormats.FWLite import Events, Handle
 import ROOT
 import os
 import json
+import time
 
 
 def getFullPath(path):
@@ -18,17 +19,23 @@ class EventBox(object):
         self.Z2_l2 = None
 
 
-class DiObject(object):
+class Object(object):
     """
     What is this?
     """
-    def __init__(self, l1, l2):
+    def __init__(self, l1, l2=None):
         self.l1 = l1
         self.l2 = l2
-        self.p4 = ROOT.TLorentzVector(self.l1.px() + self.l2.px(),
-                                      self.l1.py() + self.l2.py(),
-                                      self.l1.pz() + self.l2.pz(),
-                                      self.l1.energy() + self.l2.energy())
+        if l2:
+            self.p4 = ROOT.TLorentzVector(self.l1.px() + self.l2.px(),
+                                          self.l1.py() + self.l2.py(),
+                                          self.l1.pz() + self.l2.pz(),
+                                          self.l1.energy() + self.l2.energy())
+        else:
+            self.p4 = ROOT.TLorentzVector(self.l1.px(),
+                                          self.l1.py(),
+                                          self.l1.pz(),
+                                          self.l1.energy())
 
     def mass(self):
         return self.p4.M()
@@ -148,15 +155,25 @@ class Analyzer (object):
 
         events = Events(sample.files)
         N = 0
+        ts = time.time() 
         for event in events:
+            if N % 1000000 == 0:
+                t2 = time.time()
+                print "%s events processed in %s seconds" % (N, t2 - ts)
             N = N + 1
             weight = 1
             box = EventBox()
             self.readCollections(event, box)
             if not self.analyze(box):
                 continue
-            self.data.append(box.ZZ.mass())
+            #print "Event selected!"
+            #uncomment line below to run the FourLeptons analysis
+            #self.data.append(box.ZZ.mass())
+            #uncomment line below to run the TwoLeptons analysis
+            self.data.append(box.Z.mass())
             self.fillHistos(box, sample.type, weight)
+        tf = time.time()
+        print "%s events processed in %s seconds" % (N, tf - ts)
 
     def convertToPoisson(self, h):
         graph = ROOT.TGraphAsymmErrors()
@@ -215,7 +232,8 @@ class Analyzer (object):
 
         frame = canvas.DrawFrame(
             self.histograms['data'][histogram].GetXaxis().GetXmin(),
-            0.0, self.histograms['data'][histogram].GetXaxis().GetXmax(), 10)
+            0.0, self.histograms['data'][histogram].GetXaxis().GetXmax(), 
+            self.histograms['data'][histogram].GetMaximum()*1.2)
 
         frame.GetXaxis().SetLabelFont(42)
         frame.GetXaxis().SetLabelOffset(0.007)
@@ -260,11 +278,9 @@ class Analyzer (object):
         pt.SetFillStyle(0)
         pt.SetTextFont(42)
         pt.SetTextSize(0.03)
-        # XXX NOT USED!
-        #text = pt.AddText(0.01, 0.4, "CMS")
-        #text = pt.AddText(0.39, 0.4,
-        #                  "                            "
-        #                  "#sqrt{s} = 7 TeV, L = xy pb^{-1}")
+        pt.AddText(0.01, 0.4, "CMS")
+        pt.AddText(0.39, 0.4,"                            "
+                             "#sqrt{s} = 7 TeV, L = xy pb^{-1}")
         pt.Draw()
 
         plot = {'canvas': canvas,
