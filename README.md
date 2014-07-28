@@ -35,7 +35,8 @@ $run> ipython run.py
 ```
 
 You must specify in your run.py code which analysis you wants to run; 
-also, you must specify in python/Analyzer.py if you wants to look the massZ o massZZ:
+
+also, you must specify in python/Analyzer.py if you want to look the massZ o massZZ:
 
 ```
  #uncomment line below to run the FourLeptons analysis
