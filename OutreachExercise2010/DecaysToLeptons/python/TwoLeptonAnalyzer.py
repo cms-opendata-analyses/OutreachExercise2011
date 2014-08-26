@@ -1,6 +1,6 @@
 import itertools
 
-from OutreachExercise2010.FourLeptons.Analyzer import Analyzer, Object
+from OutreachExercise2010.DecaysToLeptons.Analyzer import Analyzer, Object
 
 
 class TwoLeptonAnalyzer(Analyzer):

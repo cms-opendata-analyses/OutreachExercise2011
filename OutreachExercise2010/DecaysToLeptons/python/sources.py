@@ -1,4 +1,4 @@
-from OutreachExercise2010.FourLeptons.Sample import Sample
+from OutreachExercise2010.DecaysToLeptons.Sample import Sample
 
 data_files = [
     'file:/data2/pattuples2010/Mu/Mu_PAT_data_500files_1.root',

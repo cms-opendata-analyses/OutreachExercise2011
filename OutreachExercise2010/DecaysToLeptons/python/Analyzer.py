@@ -7,7 +7,7 @@ import time
 
 def getFullPath(path):
     return os.path.join(os.environ['CMSSW_BASE'],
-                        'src/OutreachExercise2010/FourLeptons',
+                        'src/OutreachExercise2010/DecaysToLeptons',
                         path)
 
 
@@ -162,7 +162,7 @@ class Analyzer (object):
             if not self.analyze(box):
                 continue
             #print "Event selected!"
-            #uncomment line below to run the FourLeptons analysis
+            #uncomment line below to run the DecaysToLeptons analysis
             self.data.append(box.ZZ.mass())
             #uncomment line below to run the TwoLeptons analysis
             #self.data.append(box.Z.mass())
