@@ -15,6 +15,8 @@ The lepton selection is preliminary.
 
 ## Creating the Working Area
 
+This step is only needed the first time.
+
 ```
 cmsrel CMSSW_4_2_8
 cd CMSSW_4_2_8/src
@@ -23,17 +25,19 @@ git remote add origin https://github.com/ayrodrig/OutreachExercise2010.git
 git fetch origin
 git checkout master
 scram b 
+```
+
+## Sourcing the environment 
+
+This step is needed each time you want to run the exercise.
+
+```
+cd CMSSW_4_2_8/src
+source /cvmfs/cms.cern.ch/cmsset_default.sh
 cmsenv
 ```
 
 ## Running the Exercise
-
-
-Go to the run dir area:
-
-```
-$run> ipython run.py
-```
 
 You must specify in your run.py code which analysis you wants to run; 
 
@@ -48,6 +52,12 @@ also, you must specify in python/Analyzer.py if you want to look the massZ o mas
 
 You also need to give the path to the pattuples you use in the python/sources.py file.
  
+Then, go to the run dir area:
 
+```
+$run> ipython run.py
+```
+
+Events selection can be modified in the FourLeptons and TwoLeptons codes.
 
 
