@@ -8,7 +8,8 @@ b) the FourLeptons analysis: ZZ -> llll
 
 Both running on 2010 data, but not directly.
 
-The exercise runs over pattuples created from the 2010 AOD data.
+The exercise runs over pattuples created from the 2010 AOD data. 
+More details on the pattuples generation are in the pattuple directory.
 
 The lepton selection is preliminary.
 
@@ -44,6 +45,8 @@ also, you must specify in python/Analyzer.py if you want to look the massZ o mas
  #uncomment line below to run the TwoLeptons analysis
  self.data.append(box.Z.mass())
 ```
+
+You also need to give the path to the pattuples you use in the python/sources.py file.
  
 
 
