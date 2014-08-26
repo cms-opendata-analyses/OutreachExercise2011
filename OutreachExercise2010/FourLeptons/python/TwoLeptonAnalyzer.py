@@ -34,12 +34,13 @@ class TwoLeptonAnalyzer(Analyzer):
         #    return False
         if muon.dB(muon.PV3D) > 0.02:
             return False
+
         # muon ISO variable
         #if (muon.chargedHadronIso() +
         #        max(0.0, muon.photonIso() + muon.neutralHadronIso() -
         #            0.5 * muon.puChargedHadronIso())) / muon.pt() > 0.6:
         # For 2010: I_trk + I_ECAL + I_HCAL
-        # W&Z cross-section (2.9 pb-1)
+        # W&Z cross-section (2.9 pb-1) -> 0.15; CMSDAS 0.6
         if (muon.isolationR03().sumPt +
                 muon.isolationR03().emEt +
                 muon.isolationR03().hadEt) / muon.pt() > 0.15:
@@ -129,8 +130,14 @@ class TwoLeptonAnalyzer(Analyzer):
         if abs(electron.eta()) > 1.44 and abs(electron.eta()) < 1.57:
                 return False
  
+        # similar to muons
+        #if (electron.dr03TkSumPt() +
+        #        electron.dr03EcalRecHitSumEt()  +
+        #        electron.dr03HcalTowerSumEt()) / electron.pt() > 0.6:
+        #    return False
+
         # electron SIP variable
-        if (electron.dB(2) / electron.edB(2)) > 4:
+        if (electron.dB(electron.PV3D) / electron.edB(electron.PV3D)) > 4:
             return False
 
         if electron.dB(electron.PV3D) > 0.04:
@@ -188,7 +195,7 @@ class TwoLeptonAnalyzer(Analyzer):
         super(TwoLeptonAnalyzer, self).declareHistos()
 
         ###ADD YOUR HISTOGRAMS AFTER THIS LINE AS AbOVE#####
-        self.declareHisto('massZ', 30, 10, 170, "m_{2l} [GeV]")
+        self.declareHisto('massZ', 30, 60, 120, "m_{2l} [GeV]")
 
     def fillHistos(self, box, sample, weight=1):
         super(TwoLeptonAnalyzer, self).fillHistos(box, sample, weight)

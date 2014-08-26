@@ -125,19 +125,15 @@ class Analyzer (object):
         json.dump(info, f)
         f.close()
 
-    # defined in FourLeptons
     def analyze(self, box):
         return True
 
-    # defined in FourLeptons
     def declareHistos(self):
         return True
 
-    # defined in FourLeptons
     def fillHistos(self, box, sample, weight=1):
         return True
 
-    # used in FourLeptons
     def declareHisto(self, name, bins, min, max, xlabel=''):
         for sample in self.samples:
             self.histograms[sample][name] = ROOT.TH1F(sample + '_' + name,
@@ -145,7 +141,6 @@ class Analyzer (object):
             self.histograms[sample][name].GetXaxis().SetTitle(xlabel)
             self.histograms[sample][name].GetYaxis().SetTitle('events')
 
-    #used in FourLeptons
     def fillHisto(self, name, sample, value, weight=1):
         self.histograms[sample][name].Fill(value, weight)
 
@@ -168,9 +163,9 @@ class Analyzer (object):
                 continue
             #print "Event selected!"
             #uncomment line below to run the FourLeptons analysis
-            #self.data.append(box.ZZ.mass())
+            self.data.append(box.ZZ.mass())
             #uncomment line below to run the TwoLeptons analysis
-            self.data.append(box.Z.mass())
+            #self.data.append(box.Z.mass())
             self.fillHistos(box, sample.type, weight)
         tf = time.time()
         print "%s events processed in %s seconds" % (N, tf - ts)
@@ -280,7 +275,7 @@ class Analyzer (object):
         pt.SetTextSize(0.03)
         pt.AddText(0.01, 0.4, "CMS")
         pt.AddText(0.39, 0.4,"                            "
-                             "#sqrt{s} = 7 TeV, L = xy pb^{-1}")
+                             "#sqrt{s} = 7 TeV, L = 35.3 pb^{-1}")
         pt.Draw()
 
         plot = {'canvas': canvas,

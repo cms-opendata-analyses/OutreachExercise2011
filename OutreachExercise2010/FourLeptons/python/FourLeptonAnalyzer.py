@@ -34,16 +34,18 @@ class FourLeptonAnalyzer(Analyzer):
         #    return False
         if muon.dB(muon.PV3D) > 0.02:
             return False
+
         # muon ISO variable
         #if (muon.chargedHadronIso() +
         #        max(0.0, muon.photonIso() + muon.neutralHadronIso() -
         #            0.5 * muon.puChargedHadronIso())) / muon.pt() > 0.6:
         # For 2010: I_trk + I_ECAL + I_HCAL
-        # W&Z cross-section (2.9 pb-1)
+        # W&Z cross-section (2.9 pb-1) -> 0.15; CMSDAS 0.6
         if (muon.isolationR03().sumPt +
                 muon.isolationR03().emEt +
                 muon.isolationR03().hadEt) / muon.pt() > 0.15:
             return False
+
         # muon SIP variable # Symmetrized Impact Parameter in 2010?
         if (muon.dB(muon.PV3D) / muon.edB(muon.PV3D)) > 4:
             return False
@@ -129,8 +131,14 @@ class FourLeptonAnalyzer(Analyzer):
         if abs(electron.eta()) > 1.44 and abs(electron.eta()) < 1.57:
                 return False
 
+        # similar to muons
+        #if (electron.dr03TkSumPt() +
+        #        electron.dr03EcalRecHitSumEt()  +
+        #        electron.dr03HcalTowerSumEt()) / electron.pt() > 0.6:
+        #    return False
+
         # electron SIP variable
-        if (electron.dB(2) / electron.edB(2)) > 4:
+        if (electron.dB(electron.PV3D) / electron.edB(electron.PV3D)) > 4:
             return False
 
         if electron.dB(electron.PV3D) > 0.04:
@@ -142,7 +150,27 @@ class FourLeptonAnalyzer(Analyzer):
 
         return True
 
-    def select_zcandidates(self, box):
+    def select_zcandidates1(self, box):
+        zcandidates = []
+        for l1, l2 in itertools.combinations(box.leptons, 2):
+            # they need to have same flavour and OS
+            if abs(l1.pdgId()) != abs(l2.pdgId()):
+                continue
+            if l1.charge() + l2.charge() != 0:
+                continue
+            if (l1.pt() < 20 and l2.pt() < 10) or (l2.pt() < 20 and l1.pt() < 10):
+                continue
+            # now create a di lepton object and check mass
+            z = Object(l1, l2)
+            # Why this range: 12 -> 120? Ok first pair
+            if not (z.mass() > 12 and z.mass() < 120):
+                continue
+            if z.mass() < 40:
+                continue
+            zcandidates.append(z)
+        return zcandidates
+
+    def select_zcandidates2(self, box):
         zcandidates = []
         for l1, l2 in itertools.combinations(box.leptons, 2):
             # they need to have same flavour and OS
@@ -152,8 +180,10 @@ class FourLeptonAnalyzer(Analyzer):
                 continue
             # now create a di lepton object and check mass
             z = Object(l1, l2)
-            # Why this range: 12 -> 120?
-            if not (z.mass() > 12 and z.mass() < 120):
+            # Why this range: 12 -> 120? Not for second pair
+            #if not (z.mass() > 12 and z.mass() < 120):
+            #    continue
+            if z.mass() < 4:
                 continue
             zcandidates.append(z)
         return zcandidates
@@ -170,7 +200,7 @@ class FourLeptonAnalyzer(Analyzer):
             return False
 
         # Now create Z candidates and apply cuts:
-        box.zcandidates = self.select_zcandidates(box)
+        box.zcandidates = self.select_zcandidates1(box)
         if len(box.zcandidates) == 0:
             return False
 
@@ -185,7 +215,7 @@ class FourLeptonAnalyzer(Analyzer):
         box.leptons.remove(box.Z1.l2)
 
         # now the same thing with the second
-        box.zcandidates2 = self.select_zcandidates(box)
+        box.zcandidates2 = self.select_zcandidates2(box)
         if len(box.zcandidates2) == 0:
             return False
 
@@ -211,8 +241,8 @@ class FourLeptonAnalyzer(Analyzer):
         super(FourLeptonAnalyzer, self).declareHistos()
 
         ###ADD YOUR HISTOGRAMS AFTER THIS LINE AS AbOVE#####
-        self.declareHisto('massFull1', 70, 70, 370, "m_{4l} [GeV]")
-        self.declareHisto('massFull2', 50, 70, 370, "m_{4l} [GeV]")
+        self.declareHisto('massFull1', 70, 0, 350, "m_{4l} [GeV]")
+        self.declareHisto('massFull2', 50, 0, 350, "m_{4l} [GeV]")
         self.declareHisto('massZ1', 20, 12, 120, "m_{Z1} [GeV]")
         self.declareHisto('massZ2', 20, 4, 74, "m_{Z2} [GeV]")
 

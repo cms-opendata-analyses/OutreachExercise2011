@@ -6,16 +6,16 @@ ROOT.gROOT.ProcessLine(".x tdrstyle.C")
 
 from OutreachExercise2010.FourLeptons.sources import sources
 #uncomment line below to run the FourLeptons analysis
-#from OutreachExercise2010.FourLeptons.FourLeptonAnalyzer \
-#    import FourLeptonAnalyzer
+from OutreachExercise2010.FourLeptons.FourLeptonAnalyzer \
+    import FourLeptonAnalyzer
 #uncomment line below to run the TwoLeptons analysis
-from OutreachExercise2010.FourLeptons.TwoLeptonAnalyzer \
-    import TwoLeptonAnalyzer
+#from OutreachExercise2010.FourLeptons.TwoLeptonAnalyzer \
+#    import TwoLeptonAnalyzer
 
 #uncomment line below to run the FourLeptons analysis
-#analyzer = FourLeptonAnalyzer()
+analyzer = FourLeptonAnalyzer()
 #uncomment line below to run the TwoLeptons analysis
-analyzer = TwoLeptonAnalyzer()
+#analyzer = TwoLeptonAnalyzer()
 
 analyzer.declareHistos()
 
