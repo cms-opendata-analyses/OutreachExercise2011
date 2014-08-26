@@ -9,7 +9,8 @@ b) the FourLeptons analysis: ZZ -> llll
 Both running on 2010 data, but not directly.
 
 The exercise runs over pattuples created from the 2010 AOD data. 
-More details on the pattuples generation are in the pattuple directory.
+More details on the pattuples generation are in the pattuple repository:
+https://github.com/ayrodrig/pattuples2010
 
 The lepton selection is preliminary.
 
