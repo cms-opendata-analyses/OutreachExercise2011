@@ -59,6 +59,13 @@ Then, go to the run dir area:
 $run> ipython run.py
 ```
 
+Then, you can plot the histrograms defined in your analyzers within the interactive python session. 
+For example:
+
+$> analyzer.malePlot("massZ")
+$> analyzer.makePlot("massFull1")
+
 Events selection can be modified in the FourLeptons and TwoLeptons codes.
+The number of events to be analyzed can be modified in the function processSample within the Analyzer.py code.
 
 
