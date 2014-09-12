@@ -42,7 +42,7 @@ cmsenv
 
 You must specify in your run.py code which analysis you want to run:
 
-```
+```python
 # Import the Analyzer you want to run:
 # FourLeptonAnalyzer or TwoLeptonAnalyzer
 # by uncommenting the appropiate line below. 
