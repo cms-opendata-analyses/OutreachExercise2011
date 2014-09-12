@@ -24,7 +24,7 @@ analyzer.declareHistos()
 for sample in sources:
     # maxEv defines the maximum number of events to analyze
     # set it to -1 to analyze all available events; 
-    analyzer.processSample(sample, maxEv=-1)
+    analyzer.processSample(sample, maxEv=100)
 
 # uncommet line below to export selected data to a json file
 #analyzer.exportData()
