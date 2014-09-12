@@ -71,7 +71,7 @@ Events selection can be modified in the FourLeptons and TwoLeptons codes.
 
 The number of events to be analyzed can be modified in the run.py file.
 
-```
+```python
 for sample in sources:
     # maxEv defines the maximum number of events to analyze
     # set it to -1 to analyze all available events; 
