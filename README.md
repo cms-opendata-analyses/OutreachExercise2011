@@ -40,34 +40,34 @@ cmsenv
 
 ## Running the Exercise
 
-You must specify in your run.py code which analysis you wants to run; 
-
-also, you must specify in python/Analyzer.py if you want to look the massZ o massZZ:
+You must specify in your run.py code which analysis you wants to run:
 
 ```
- #uncomment line below to run the FourLeptons analysis
- #self.data.append(box.ZZ.mass())
- #uncomment line below to run the TwoLeptons analysis
- self.data.append(box.Z.mass())
-```
+# Import the Analyzer you want to run:
+# FourLeptonAnalyzer or TwoLeptonAnalyzer
+# by uncommenting the appropiate line below. 
+
+#from OutreachExercise2010.DecaysToLeptons.FourLeptonAnalyzer import FourLeptonAnalyzer as MyAnalyzer
+from OutreachExercise2010.DecaysToLeptons.TwoLeptonAnalyzer import TwoLeptonAnalyzer as MyAnalyzer
+``` 
 
 You also need to give the path to the pattuples you use in the python/sources.py file.
  
 Then, go to the run dir area:
 
 ```
-$run> ipython run.py
+ipython run.py
 ```
 
 Then, you can plot the histrograms defined in your analyzers within the interactive python session. 
 For example:
 
 ```
-$> analyzer.malePlot("massZ")
-$> analyzer.makePlot("massFull1")
+analyzer.makePlot("massZ")
+analyzer.makePlot("massFull1")
 ```
 
 Events selection can be modified in the FourLeptons and TwoLeptons codes.
-The number of events to be analyzed can be modified in the function processSample within the Analyzer.py code.
+The number of events to be analyzed can be modified in the run.py file.
 
 

@@ -1,3 +1,10 @@
+#
+# Copyright (c) 2014 A.Y. Rodriguez-Marrero and E. Fernandez-del-Castillo
+# Based on the code of the CMSData Analysis School 2014 Long Exercise: 
+# Search for the Higgs in ZZ -> 4 leptons decay channel (available 
+# at https://github.com/bachtis/CMSDAS)
+#
+
 from DataFormats.FWLite import Events, Handle
 import ROOT
 import os
@@ -144,31 +151,30 @@ class Analyzer (object):
     def fillHisto(self, name, sample, value, weight=1):
         self.histograms[sample][name].Fill(value, weight)
 
+    def addEvent(self, box):
+        return
+
     def processSample(self, sample, maxEv=-1):
         print 'Processing Files'
         print sample.files
 
         events = Events(sample.files)
-        N = 0
         ts = time.time() 
-        for event in events:
+        for N, event in enumerate(events):
+            if maxEv >= 0 and (N + 1) >= maxEv:
+               break
             if N % 1000000 == 0:
                 t2 = time.time()
-                print "%s events processed in %s seconds" % (N, t2 - ts)
-            N = N + 1
+                print "%s events processed in %s seconds" % (N + 1, t2 - ts)
             weight = 1
             box = EventBox()
             self.readCollections(event, box)
             if not self.analyze(box):
                 continue
-            #print "Event selected!"
-            #uncomment line below to run the DecaysToLeptons analysis
-            self.data.append(box.ZZ.mass())
-            #uncomment line below to run the TwoLeptons analysis
-            #self.data.append(box.Z.mass())
+            self.addEvent(box)
             self.fillHistos(box, sample.type, weight)
         tf = time.time()
-        print "%s events processed in %s seconds" % (N, tf - ts)
+        print "%s events processed in %s seconds" % (N + 1, tf - ts)
 
     def convertToPoisson(self, h):
         graph = ROOT.TGraphAsymmErrors()

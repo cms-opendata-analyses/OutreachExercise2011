@@ -1,3 +1,10 @@
+#
+# Copyright (c) 2014 A.Y. Rodriguez-Marrero and E. Fernandez-del-Castillo
+# Based on the code of the CMSData Analysis School 2014 Long Exercise: 
+# Search for the Higgs in ZZ -> 4 leptons decay channel (available 
+# at https://github.com/bachtis/CMSDAS)
+#
+
 from OutreachExercise2010.DecaysToLeptons.Sample import Sample
 
 data_files = [
