@@ -62,7 +62,7 @@ You also need to give the path to the pattuples you use in the file:
 OutreachExercise2010/DecaysToLeptons/python/sources.py
 ``` 
  
-Then, go to the run dir area:
+Then, just run:
 
 ```
 ipython run.py
