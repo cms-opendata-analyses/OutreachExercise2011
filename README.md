@@ -96,7 +96,7 @@ analyzer.makePlot("massZ")
 analyzer.makePlot("massFull1")
 ```
 
-Events selection can be modified in the FourLeptonsAnalyzer.py and TwoLeptonsAnalyzer.py codes:
+Events selection can be modified in the FourLeptonAnalyzer.py and TwoLeptonAnalyzer.py codes:
 ```
 OutreachExercise2010/DecaysToLeptons/python/FourLeptonAnalyzer.py
 OutreachExercise2010/DecaysToLeptons/python/TwoLeptonAnalyzer.py
