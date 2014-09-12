@@ -62,7 +62,7 @@ ipython run.py
 Then, you can plot the histrograms defined in your analyzers within the interactive python session. 
 For example, to get the Z mass or the ZZ mass in the full range:
 
-```
+```python
 analyzer.makePlot("massZ") 
 analyzer.makePlot("massFull1")
 ```
