@@ -40,7 +40,7 @@ cmsenv
 
 ## Running the Exercise
 
-You must specify in your run.py code which analysis you wants to run:
+You must specify in your run.py code which analysis you want to run:
 
 ```
 # Import the Analyzer you want to run:
@@ -60,10 +60,10 @@ ipython run.py
 ```
 
 Then, you can plot the histrograms defined in your analyzers within the interactive python session. 
-For example:
+For example, to get the Z mass or the ZZ mass in the full range:
 
 ```
-analyzer.makePlot("massZ")
+analyzer.makePlot("massZ") 
 analyzer.makePlot("massFull1")
 ```
 
