@@ -40,7 +40,13 @@ cmsenv
 
 ## Running the Exercise
 
-You must specify in your run.py code which analysis you want to run:
+To run the code you have to move to the directory:
+
+```
+OutreachExercise2010/DecaysToLeptons/run/
+```
+
+You must specify in your run.py code from the path above which analysis you want to run:
 
 ```python
 # Import the Analyzer you want to run:
@@ -51,12 +57,35 @@ You must specify in your run.py code which analysis you want to run:
 from OutreachExercise2010.DecaysToLeptons.TwoLeptonAnalyzer import TwoLeptonAnalyzer as MyAnalyzer
 ``` 
 
-You also need to give the path to the pattuples you use in the python/sources.py file.
+You also need to give the path to the pattuples you use in the file:
+```
+OutreachExercise2010/DecaysToLeptons/python/sources.py
+``` 
  
 Then, go to the run dir area:
 
 ```
 ipython run.py
+```
+
+The number of events to be analyzed can be modified in the run.py file.
+
+```python
+for sample in sources:
+    # maxEv defines the maximum number of events to analyze
+    # set it to -1 to analyze all available events; 
+    analyzer.processSample(sample, maxEv=100)
+```
+
+At the beginning you will get a message like: 
+
+```python
+Processing Files
+['root://eospublic.cern.ch//eos/opendata/cms/Run2010B/Mu/PATtuples/Mu_PAT_data_500files_1.root', 'root://eospublic.cern.ch//eos/opendata/cms/Run2010B/Mu/PATtuples/Mu_PAT_data_500files_2.root', 'root://eospublic.cern.ch//eos/opendata/cms/Run2010B/Mu/PATtuples/Mu_PAT_data_500files_3.root', 'root://eospublic.cern.ch//eos/opendata/cms/Run2010B/Mu/PATtuples/Mu_PAT_data_500files_4.root', 'root://eospublic.cern.ch//eos/opendata/cms/Run2010B/Mu/PATtuples/Mu_PAT_data_500files_5.root', 'root://eospublic.cern.ch//eos/opendata/cms/Run2010B/Mu/PATtuples/Mu_PAT_data_500files_6.root', 'root://eospublic.cern.ch//eos/opendata/cms/Run2010B/Electron/PATtuples/Electron_PAT_data_500files_1.root', 'root://eospublic.cern.ch//eos/opendata/cms/Run2010B/Electron/PATtuples/Electron_PAT_data_500files_2.root', 'root://eospublic.cern.ch//eos/opendata/cms/Run2010B/Electron/PATtuples/Electron_PAT_data_500files_3.root', 'root://eospublic.cern.ch//eos/opendata/cms/Run2010B/Electron/PATtuples/Electron_PAT_data_500files_4.root', 'root://eospublic.cern.ch//eos/opendata/cms/Run2010B/Electron/PATtuples/Electron_PAT_data_500files_5.root', 'root://eospublic.cern.ch//eos/opendata/cms/Run2010B/Electron/PATtuples/Electron_PAT_data_500files_6.root']
+1 events processed in 28.4234111309 seconds
+100 events processed in 49.6256351471 seconds
+[...]
+In [1]: 
 ```
 
 Then, you can plot the histrograms defined in your analyzers within the interactive python session. 
@@ -67,14 +96,9 @@ analyzer.makePlot("massZ")
 analyzer.makePlot("massFull1")
 ```
 
-Events selection can be modified in the FourLeptons and TwoLeptons codes.
-
-The number of events to be analyzed can be modified in the run.py file.
-
-```python
-for sample in sources:
-    # maxEv defines the maximum number of events to analyze
-    # set it to -1 to analyze all available events; 
-    analyzer.processSample(sample, maxEv=-1)
+Events selection can be modified in the FourLeptonsAnalyzer.py and TwoLeptonsAnalyzer.py codes:
+```
+OutreachExercise2010/DecaysToLeptons/python/FourLeptonAnalyzer.py
+OutreachExercise2010/DecaysToLeptons/python/TwoLeptonAnalyzer.py
 ```
 
