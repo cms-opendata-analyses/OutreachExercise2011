@@ -19,6 +19,7 @@ The lepton selection is preliminary.
 This step is only needed the first time.
 
 ```
+source /cvmfs/cms.cern.ch/cmsset_default.sh
 cmsrel CMSSW_4_2_8
 cd CMSSW_4_2_8/src
 git init
@@ -33,8 +34,8 @@ scram b
 This step is needed each time you want to run the exercise.
 
 ```
-cd CMSSW_4_2_8/src
 source /cvmfs/cms.cern.ch/cmsset_default.sh
+cd CMSSW_4_2_8/src
 cmsenv
 ```
 
@@ -95,6 +96,8 @@ For example, to get the Z mass or the ZZ mass in the full range:
 analyzer.makePlot("massZ") 
 analyzer.makePlot("massFull1")
 ```
+
+You can exit the ipython session by typing exit() or ctrl+d.
 
 Events selection can be modified in the FourLeptonAnalyzer.py and TwoLeptonAnalyzer.py codes:
 ```
