@@ -12,7 +12,7 @@ The exercise runs over tuples created following the Physics Analysis Toolkit (pa
 More details on the pattuples generation are in the pattuple repository:
 https://github.com/ayrodrig/pattuples2010
 
-From now on it is assumed that you will work on a VM proper contextualized for CMS.
+From now on it is assumed that you will work on a VM properly contextualized for CMS.
 
 ## Creating the Working Area
 
