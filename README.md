@@ -6,13 +6,13 @@ a) the TwoLeptons analysis: Z ->  ll
 
 b) the FourLeptons analysis: ZZ -> llll
 
-Both running on 2010 data, but not directly.
+Both examples exercises running on 2010 data, but not directly in the AOD format.
 
-The exercise runs over pattuples created from the 2010 AOD data. 
+The exercise runs over tuples created following the Physics Analysis Toolkit (pattuples) from the 2010 AOD data. 
 More details on the pattuples generation are in the pattuple repository:
 https://github.com/ayrodrig/pattuples2010
 
-The lepton selection is preliminary.
+From now on it is assumed that you will work on a VM proper contextualized for CMS.
 
 ## Creating the Working Area
 
