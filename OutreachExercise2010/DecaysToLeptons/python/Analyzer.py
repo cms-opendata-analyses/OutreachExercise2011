@@ -159,6 +159,7 @@ class Analyzer (object):
         print sample.files
 
         events = Events(sample.files)
+        print "%s events available for processing" % events.size()
         ts = time.time() 
         for N, event in enumerate(events):
             if maxEv >= 0 and (N + 1) >= maxEv:
@@ -229,8 +230,6 @@ class Analyzer (object):
 
         canvas.cd()
 
-        self.histograms['data'][histogram].SetMarkerStyle(20)
-
         frame = canvas.DrawFrame(
             self.histograms['data'][histogram].GetXaxis().GetXmin(),
             0.0, self.histograms['data'][histogram].GetXaxis().GetXmax(), 
@@ -254,7 +253,11 @@ class Analyzer (object):
         frame.GetZaxis().SetTitleSize(0.05)
         frame.GetZaxis().SetTitleFont(42)
 
+        frame.GetXaxis().SetTitle(self.histograms['data'][histogram].GetXaxis().GetTitle())
+        frame.GetYaxis().SetTitle(self.histograms['data'][histogram].GetYaxis().GetTitle())
         frame.Draw()
+
+        self.histograms['data'][histogram].SetMarkerStyle(20)
         self.histograms['data'][histogram].Sumw2()
         dataG = None
         if self.histograms['data'][histogram].Integral() > 0:
