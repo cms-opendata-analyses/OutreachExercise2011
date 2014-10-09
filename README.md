@@ -63,10 +63,16 @@ You also need to give the path to the pattuples you use in the file:
 OutreachExercise2010/DecaysToLeptons/python/sources.py
 ``` 
  
-Then, just run:
+Then, just run your analysis in a interactive mode:
 
 ```
-ipython run.py
+ipython run.py 
+```
+
+or in a non-interactive mode:
+
+```
+python run.py 
 ```
 
 The number of events to be analyzed can be modified in the run.py file.
@@ -89,12 +95,14 @@ Processing Files
 In [1]: 
 ```
 
-Then, you can plot the histrograms defined in your analyzers within the interactive python session. 
-For example, to get the Z mass or the ZZ mass in the full range:
+By default all the histrograms defined in your analyzer will be plotted and saved in pdf format (with the name of the histogram). In the interactive mode, you can also plot them typing (depending on the analysis your are running):
 
 ```python
 analyzer.makePlot("massZ") 
-analyzer.makePlot("massFull1")
+```
+or
+```
+analyzer.makePlot("massZZ")
 ```
 
 You can exit the ipython session by typing exit() or ctrl+d.
