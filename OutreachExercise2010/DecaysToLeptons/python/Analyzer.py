@@ -80,6 +80,7 @@ class Analyzer (object):
         self.electronHandle = Handle('std::vector<pat::Electron>')
         self.histograms = {}
         self.samples = ['data']
+        self.canvases = []
         for sample in self.samples:
             self.histograms[sample] = {}
         self.data = []
@@ -210,6 +211,7 @@ class Analyzer (object):
         # XXX NOT USED!
         # sandbox = []
         canvas = ROOT.TCanvas(histogram)
+        self.canvases.append(canvas)
         canvas.cd()
         ROOT.gStyle.SetOptStat(0)
         ROOT.gStyle.SetOptTitle(0)
@@ -227,7 +229,6 @@ class Analyzer (object):
         canvas.SetFrameBorderMode(0)
         canvas.SetFrameFillStyle(0)
         canvas.SetFrameBorderMode(0)
-
         canvas.cd()
 
         frame = canvas.DrawFrame(
@@ -264,7 +265,6 @@ class Analyzer (object):
             dataG = self.convertToPoisson(self.histograms['data'][histogram])
             dataG.Draw("Psame")
 
-        #legend = ROOT.TLegend(0.62,0.6,0.92,0.90,"","brNDC")
         legend = ROOT.TLegend(0.74, 0.84, 0.94, 0.94, "", "brNDC")
         legend.SetBorderSize(0)
         legend.SetLineColor(1)
@@ -275,6 +275,7 @@ class Analyzer (object):
         legend.SetTextFont(42)
         legend.AddEntry(self.histograms['data'][histogram], "Data", "p")
         legend.Draw()
+
         pt = ROOT.TPaveText(0.1577181, 0.9562937, 0.9580537,
                             0.9947552, "brNDC")
         pt.SetBorderSize(0)
@@ -295,4 +296,10 @@ class Analyzer (object):
         canvas.RedrawAxis()
         canvas.Update()
 
+        canvas.SaveAs(histogram+".pdf")          
+
         return plot
+
+    def makeAllPlots(self):
+        for histogram in self.histograms['data']:
+            self.makePlot(histogram)
