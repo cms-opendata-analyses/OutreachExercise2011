@@ -98,10 +98,13 @@ class Analyzer (object):
         return True
 
     def leptonID(self, lepton, vertex):
-        if abs(lepton.pdgId()) == 11:
-            return self.electronID(lepton, vertex)
-        elif abs(lepton.pdgId()) == 13:
-            return self.muonID(lepton, vertex)
+        try:
+            if abs(lepton.pdgId()) == 11:
+                return self.electronID(lepton, vertex)
+            elif abs(lepton.pdgId()) == 13:
+                return self.muonID(lepton, vertex)
+        except ZeroDivisionError:
+            return False
 
     def readCollections(self, event, box, isFake=False):
         event.getByLabel('offlinePrimaryVertices', self.vertexHandle)
@@ -117,15 +120,21 @@ class Analyzer (object):
         for mu in box.muons:
             if mu.pt() < 5 or abs(mu.eta()) > 2.4:
                 continue
-            if self.muonID(mu, box.vertex):
-                box.selectedMuons.append(mu)
+            try:
+                if self.muonID(mu, box.vertex):
+                    box.selectedMuons.append(mu)
+            except ZeroDivisionError:
+                continue
 
         box.selectedElectrons = []
         for ele in box.electrons:
             if ele.pt() < 5 or abs(ele.eta()) > 2.5:
                 continue
-            if self.electronID(ele, box.vertex):
-                box.selectedElectrons.append(ele)
+            try:
+                if self.electronID(ele, box.vertex):
+                    box.selectedElectrons.append(ele)
+            except ZeroDivisionError:
+                continue
 
     def exportData(self):
         f = open('data.json', 'w')
