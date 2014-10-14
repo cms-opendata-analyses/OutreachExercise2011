@@ -293,8 +293,6 @@ class Analyzer (object):
         pt.SetTextFont(42)
         pt.SetTextSize(0.03)
         pt.AddText(0.01, 0.4, "CMS")
-        pt.AddText(0.39, 0.4,"                            "
-                             "#sqrt{s} = 7 TeV, L = 35.3 pb^{-1}")
         pt.Draw()
 
         plot = {'canvas': canvas,
