@@ -19,7 +19,6 @@ From now on it is assumed that you will work on a VM properly contextualized for
 This step is only needed the first time.
 
 ```
-source /cvmfs/cms.cern.ch/cmsset_default.sh
 cmsrel CMSSW_4_2_8
 cd CMSSW_4_2_8/src
 git init
@@ -34,12 +33,16 @@ scram b
 This step is needed each time you want to run the exercise.
 
 ```
-source /cvmfs/cms.cern.ch/cmsset_default.sh
 cd CMSSW_4_2_8/src
 cmsenv
 ```
 
 ## Running the Exercise
+
+The path to the pattuples is giving in the file:
+```
+OutreachExercise2010/DecaysToLeptons/python/sources.py
+``` 
 
 To run the code you have to move to the directory:
 
@@ -58,11 +61,18 @@ You must specify in your run.py code from the path above which analysis you want
 from OutreachExercise2010.DecaysToLeptons.TwoLeptonAnalyzer import TwoLeptonAnalyzer as MyAnalyzer
 ``` 
 
-You also need to give the path to the pattuples you use in the file:
+The number of events to be analyzed can be modified in the run.py file.
+
+```python
+for sample in sources:
+    # maxEv defines the maximum number of events to analyze
+    # set it to -1 to analyze all available events; 
+    analyzer.processSample(sample, maxEv=100)
 ```
-OutreachExercise2010/DecaysToLeptons/python/sources.py
-``` 
- 
+
+To get enough events in the plots, you would need to run over all available samples. That takes time.
+If you just want to see whether you can get this running, run over at least 100000 events to get some entries in the plot for the two lepton example, and more for the four lepton example.
+
 Then, just run your analysis in a interactive mode:
 
 ```
@@ -74,16 +84,6 @@ or in a non-interactive mode:
 ```
 python run.py 
 ```
-
-The number of events to be analyzed can be modified in the run.py file.
-
-```python
-for sample in sources:
-    # maxEv defines the maximum number of events to analyze
-    # set it to -1 to analyze all available events; 
-    analyzer.processSample(sample, maxEv=100)
-```
-
 At the beginning you will get a message like: 
 
 ```python
