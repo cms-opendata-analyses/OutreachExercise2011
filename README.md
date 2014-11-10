@@ -19,6 +19,7 @@ From now on it is assumed that you will work on a VM properly contextualized for
 This step is only needed the first time.
 
 ```
+source /cvmfs/cms.cern.ch/cmsset_default.sh
 cmsrel CMSSW_4_2_8
 cd CMSSW_4_2_8/src
 git init
@@ -33,6 +34,7 @@ scram b
 This step is needed each time you want to run the exercise.
 
 ```
+source /cvmfs/cms.cern.ch/cmsset_default.sh
 cd CMSSW_4_2_8/src
 cmsenv
 ```
