@@ -26,8 +26,8 @@ from OutreachExercise2010.DecaysToLeptons.sources import sources
 # FourLeptonAnalyzer or TwoLeptonAnalyzer
 # by uncommenting the appropiate line below. 
 
-from OutreachExercise2010.DecaysToLeptons.FourLeptonAnalyzer import FourLeptonAnalyzer as MyAnalyzer
-#from OutreachExercise2010.DecaysToLeptons.TwoLeptonAnalyzer import TwoLeptonAnalyzer as MyAnalyzer
+#from OutreachExercise2010.DecaysToLeptons.FourLeptonAnalyzer import FourLeptonAnalyzer as MyAnalyzer
+from OutreachExercise2010.DecaysToLeptons.TwoLeptonAnalyzer import TwoLeptonAnalyzer as MyAnalyzer
 
 analyzer = MyAnalyzer()
 
@@ -36,7 +36,7 @@ analyzer.declareHistos()
 for sample in sources:
     # maxEv defines the maximum number of events to analyze
     # set it to -1 to analyze all available events; 
-    analyzer.processSample(sample, maxEv=-1)
+    analyzer.processSample(sample, maxEv=100)
 
 
 analyzer.makeAllPlots()
