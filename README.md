@@ -97,7 +97,7 @@ Processing Files
 In [1]: 
 ```
 
-By default all the histrograms defined in your analyzer will be plotted and saved in pdf format (with the name of the histogram). In the interactive mode, you can also plot them typing (depending on the analysis your are running):
+By default all the histrograms defined in your analyzer will be plotted and saved in png format (with the name of the histogram). In the interactive mode, you can also plot them typing (depending on the analysis your are running):
 
 ```python
 analyzer.makePlot("massZ") 
