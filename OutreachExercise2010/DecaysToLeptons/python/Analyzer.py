@@ -315,7 +315,7 @@ class Analyzer (object):
         canvas.RedrawAxis()
         canvas.Update()
 
-        canvas.SaveAs(histogram+".pdf")          
+        canvas.SaveAs(histogram+".png")          
 
         return plot
 
