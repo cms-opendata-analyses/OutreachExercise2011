@@ -18,11 +18,11 @@
 ## along with CMSOutreachExercise2010. If not, see <http://www.gnu.org/licenses/>.
 
 from DataFormats.FWLite import Events, Handle
+from OutreachExercise2010.DecaysToLeptons import rootnotes
 import ROOT
 import os
 import json
 import time
-
 
 def getFullPath(path):
     return os.path.join(os.environ['CMSSW_BASE'],
@@ -92,7 +92,7 @@ class Analyzer (object):
         self.electronHandle = Handle('std::vector<pat::Electron>')
         self.histograms = {}
         self.samples = ['data']
-        self.canvases = []
+        self.plots = {}
         for sample in self.samples:
             self.histograms[sample] = {}
         self.data = []
@@ -231,8 +231,10 @@ class Analyzer (object):
     def makePlot(self, histogram):
         # XXX NOT USED!
         # sandbox = []
-        canvas = ROOT.TCanvas(histogram)
-        self.canvases.append(canvas)
+        #canvas = ROOT.TCanvas(histogram)
+        #if histogram in self.plots:
+        #    return self.plots[histogram]['canvas']
+        canvas = rootnotes.canvas(histogram)
         canvas.cd()
         ROOT.gStyle.SetOptStat(0)
         ROOT.gStyle.SetOptTitle(0)
@@ -307,18 +309,18 @@ class Analyzer (object):
         pt.AddText(0.01, 0.4, "CMS")
         pt.Draw()
 
-        plot = {'canvas': canvas,
-                'legend': legend,
-                'dataG': dataG,
-                'latex1': pt}
+        self.plots[histogram] = {
+            'canvas': canvas,
+            'legend': legend,
+            'dataG': dataG,
+            'latex1': pt}
 
         canvas.RedrawAxis()
         canvas.Update()
 
         canvas.SaveAs(histogram+".png")          
-
-        return plot
+       
+        return canvas
 
     def makeAllPlots(self):
-        for histogram in self.histograms['data']:
-            self.makePlot(histogram)
+        return [self.makePlot(h) for h in self.histograms['data']]
