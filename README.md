@@ -1,22 +1,22 @@
 # CMS Outreach Exercise 2011
 
-Some intro text here. This repo contains two examples:
+This repository contains two examples:
 
 a) the TwoLeptons analysis: Z ->  ll
 
 b) the FourLeptons analysis: ZZ -> llll
 
-Both examples exercises running on 2011 data, but not directly in the AOD format.
+Both examples exercises read 2011 data, but not directly in the AOD format.
 
 The exercise runs over tuples created following the Physics Analysis Toolkit (pattuples) from the 2011 AOD data. 
 More details on the pattuples generation are in the pattuple repository:
 https://github.com/katilp/pattuples2011
 
-From now on it is assumed that you will work on a VM properly contextualized for CMS.
+From now on it is assumed that you will work on a VM properly contextualized for CMS, available from http://opendata.cern.ch/VM/CMS.
 
 ## Creating the Working Area
 
-This step is only needed the first time.
+This step is only needed the first time (cmsrel command is needed only if you do not have created your CMSSW_5_3_32 working area earlier).
 
 ```
 cmsrel CMSSW_5_3_32
