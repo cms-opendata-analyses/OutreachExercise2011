@@ -20,7 +20,7 @@ This step is only needed the first time.
 
 ```
 cmsrel CMSSW_5_3_32
-cd CMSSW_5_3_5/src
+cd CMSSW_5_3_32/src
 cmsenv
 git clone https://github.com/katilp/OutreachExercise2011.git
 scram b 
