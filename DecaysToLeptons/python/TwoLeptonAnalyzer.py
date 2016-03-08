@@ -1,15 +1,15 @@
-## This file is part of CMSOutreachExercise2010.
+## This file is part of CMSOutreachExercise2011 derived from CMSOutreachExercise2010.
 ## Copyright (C) 2014 Instituto de Fisica de Cantabria and CERN.
 ## Based on the code of the CMSData Analysis School 2014 Long Exercise: 
 ## Search for the Higgs in ZZ -> 4 leptons decay channel (available 
 ## at https://github.com/bachtis/CMSDAS)
 
-## CMSOutreachExercise2010 is free software: you can redistribute it and/or modify
+## CMSOutreachExercise2011 is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
 ## the Free Software Foundation, either version 3 of the License, or
 ## (at your option) any later version.
 ##
-## CMSOutreachExercise2010 is distributed in the hope that it will be useful,
+## CMSOutreachExercise2011 is distributed in the hope that it will be useful,
 ## but WITHOUT ANY WARRANTY; without even the implied warranty of
 ## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 ## GNU General Public License for more details.
@@ -19,16 +19,16 @@
 
 import itertools
 
-from OutreachExercise2010.DecaysToLeptons.Analyzer import Analyzer, Object
+from OutreachExercise2011.DecaysToLeptons.Analyzer import Analyzer, Object
 
 
-class FourLeptonAnalyzer(Analyzer):
+class TwoLeptonAnalyzer(Analyzer):
     """
     XXX
     Some comment here.
     """
     def __init__(self):
-        super(FourLeptonAnalyzer, self).__init__()
+        super(TwoLeptonAnalyzer, self).__init__()
 
     #####CHANGE THIS METHOD TO CHANGE MUON ID######
     def muonID(self, muon, vertex):
@@ -79,7 +79,6 @@ class FourLeptonAnalyzer(Analyzer):
 
     #####CHANGE THIS METHOD TO CHANGE ELECTRON ID######
     def electronID(self, electron, vertex):
-        return True
         if electron.pt() < 7 or abs(electron.eta()) > 2.5:
             return False
 
@@ -118,10 +117,10 @@ class FourLeptonAnalyzer(Analyzer):
         #6: passes conversion rejection and Isolation
         #7: passes the whole selection
 
-        if not electron.electronID("eidLoose"): 
+        if not electron.electronID("eidLoose"):
             return False
 
-        #photon conversion rejection? 
+        #photon conversion rejection?
 
         if electron.gsfTrack().trackerExpectedHitsInner().numberOfHits() > 1:
             return False
@@ -149,7 +148,7 @@ class FourLeptonAnalyzer(Analyzer):
         # excluded the region btw 1.44 and 1.57 (W&Z cross-section 2.9 pb-1)
         if abs(electron.eta()) > 1.44 and abs(electron.eta()) < 1.57:
                 return False
-
+ 
         # similar to muons
         #if (electron.dr03TkSumPt() +
         #        electron.dr03EcalRecHitSumEt()  +
@@ -169,7 +168,7 @@ class FourLeptonAnalyzer(Analyzer):
 
         return True
 
-    def select_zcandidates1(self, box):
+    def select_zcandidates(self, box):
         zcandidates = []
         for l1, l2 in itertools.combinations(box.leptons, 2):
             # they need to have same flavour and OS
@@ -177,32 +176,10 @@ class FourLeptonAnalyzer(Analyzer):
                 continue
             if l1.charge() + l2.charge() != 0:
                 continue
-            if (l1.pt() < 20 and l2.pt() < 10) or (l2.pt() < 20 and l1.pt() < 10):
-                continue
             # now create a di lepton object and check mass
             z = Object(l1, l2)
-            # Why this range: 12 -> 120? Ok first pair
+            # Why this range: 4 -> 120?
             if not (z.mass() > 12 and z.mass() < 120):
-                continue
-            if z.mass() < 40:
-                continue
-            zcandidates.append(z)
-        return zcandidates
-
-    def select_zcandidates2(self, box):
-        zcandidates = []
-        for l1, l2 in itertools.combinations(box.leptons, 2):
-            # they need to have same flavour and OS
-            if abs(l1.pdgId()) != abs(l2.pdgId()):
-                continue
-            if l1.charge() + l2.charge() != 0:
-                continue
-            # now create a di lepton object and check mass
-            z = Object(l1, l2)
-            # Why this range: 12 -> 120? Not for second pair
-            #if not (z.mass() > 12 and z.mass() < 120):
-            #    continue
-            if z.mass() < 4:
                 continue
             zcandidates.append(z)
         return zcandidates
@@ -211,15 +188,15 @@ class FourLeptonAnalyzer(Analyzer):
     def analyze(self, box):
 
         #####START FROM A bOX CONTAINING SELECTED MUONS AND ELECTRONS and MAKE
-        #####FOUR LEPTON CANDIDATES
+        #####TWO LEPTON CANDIDATES
 
-        # Now check if there are at least four leptons:
+        # Now check if there are at least two leptons:
         box.leptons = set(box.selectedMuons + box.selectedElectrons)
-        if len(box.leptons) < 4:
+        if len(box.leptons) < 2:
             return False
 
         # Now create Z candidates and apply cuts:
-        box.zcandidates = self.select_zcandidates1(box)
+        box.zcandidates = self.select_zcandidates(box)
         if len(box.zcandidates) == 0:
             return False
 
@@ -227,49 +204,23 @@ class FourLeptonAnalyzer(Analyzer):
         # pick the one with the best mass
         sortedZs = sorted(box.zcandidates,
                           key=lambda x: abs(x.mass() - 91.118))
-        box.Z1 = sortedZs[0]
+        box.Z = sortedZs[0]
 
-        # now remove the used leptons from the list and make Z2 pairs
-        box.leptons.remove(box.Z1.l1)
-        box.leptons.remove(box.Z1.l2)
-
-        # now the same thing with the second
-        box.zcandidates2 = self.select_zcandidates2(box)
-        if len(box.zcandidates2) == 0:
-            return False
-
-        # OK if there are more than one Z candidates
-        # pick the one with the highest lepton pt sum
-        sortedZ2s = sorted(box.zcandidates2,
-                           key=lambda x: x.l1.pt() + x.l2.pt(), reverse=True)
-        box.Z2 = sortedZ2s[0]
-
-        # kill the candidate if a OS pair has mll<4 GeV
-        for l1, l2 in itertools.combinations([box.Z1.l1, box.Z1.l2,
-                                              box.Z2.l1, box.Z2.l2], 2):
-            ll = Object(l1, l2)
-            if (l1.charge() + l2.charge()) == 0:
-                if ll.mass() < 4:
-                    return False
-
-        # create the ZZ
-        box.ZZ = Object(box.Z1, box.Z2)
+        # create the Z
+        box.Z = Object(box.Z)
         return True
 
     def declareHistos(self):
-        super(FourLeptonAnalyzer, self).declareHistos()
+        super(TwoLeptonAnalyzer, self).declareHistos()
 
         ###ADD YOUR HISTOGRAMS AFTER THIS LINE AS AbOVE#####
-        self.declareHisto('massZZ', 70, 0, 350, "m_{4l} [GeV]")
-        self.declareHisto('massZ1', 20, 12, 120, "m_{Z1} [GeV]")
-        self.declareHisto('massZ2', 20, 4, 74, "m_{Z2} [GeV]")
+        self.declareHisto('massZ', 30, 60, 120, "m_{2l} [GeV]")
 
     def fillHistos(self, box, sample, weight=1):
-        super(FourLeptonAnalyzer, self).fillHistos(box, sample, weight)
+        super(TwoLeptonAnalyzer, self).fillHistos(box, sample, weight)
 
-        self.fillHisto('massZZ', sample, box.ZZ.mass(), weight)
-        self.fillHisto('massZ1', sample, box.ZZ.l1.mass(), weight)
-        self.fillHisto('massZ2', sample, box.ZZ.l2.mass(), weight)
+        self.fillHisto('massZ', sample, box.Z.l1.mass(), weight)
 
     def addEvent(self, box):
-        self.data.append(box.ZZ.mass())
+        self.data.append(box.Z.mass())
+        
