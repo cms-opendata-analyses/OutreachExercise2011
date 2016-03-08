@@ -1,4 +1,4 @@
-# CMS Outreach Exercise 2010
+# CMS Outreach Exercise 2011
 
 Some intro text here. This repo contains two examples:
 
@@ -6,11 +6,11 @@ a) the TwoLeptons analysis: Z ->  ll
 
 b) the FourLeptons analysis: ZZ -> llll
 
-Both examples exercises running on 2010 data, but not directly in the AOD format.
+Both examples exercises running on 2011 data, but not directly in the AOD format.
 
-The exercise runs over tuples created following the Physics Analysis Toolkit (pattuples) from the 2010 AOD data. 
+The exercise runs over tuples created following the Physics Analysis Toolkit (pattuples) from the 2011 AOD data. 
 More details on the pattuples generation are in the pattuple repository:
-https://github.com/ayrodrig/pattuples2010
+https://github.com/katilp/pattuples2011
 
 From now on it is assumed that you will work on a VM properly contextualized for CMS.
 
@@ -19,13 +19,10 @@ From now on it is assumed that you will work on a VM properly contextualized for
 This step is only needed the first time.
 
 ```
-source /cvmfs/cms.cern.ch/cmsset_default.sh
-cmsrel CMSSW_4_2_8
-cd CMSSW_4_2_8/src
-git init
-git remote add origin https://github.com/ayrodrig/OutreachExercise2010.git 
-git fetch origin
-git checkout master
+cmsrel CMSSW_5_3_32
+cd CMSSW_5_3_5/src
+cmsenv
+git clone https://github.com/katilp/OutreachExercise2011.git
 scram b 
 ```
 
@@ -34,8 +31,7 @@ scram b
 This step is needed each time you want to run the exercise.
 
 ```
-source /cvmfs/cms.cern.ch/cmsset_default.sh
-cd CMSSW_4_2_8/src
+cd CMSSW_5_3_32/src
 cmsenv
 ```
 
@@ -43,13 +39,13 @@ cmsenv
 
 The path to the pattuples is giving in the file:
 ```
-OutreachExercise2010/DecaysToLeptons/python/sources.py
+OutreachExercise2011/DecaysToLeptons/python/sources.py
 ``` 
 
 To run the code you have to move to the directory:
 
 ```
-OutreachExercise2010/DecaysToLeptons/run/
+OutreachExercise2011/DecaysToLeptons/run/
 ```
 
 You must specify in your run.py code from the path above which analysis you want to run:
@@ -59,8 +55,8 @@ You must specify in your run.py code from the path above which analysis you want
 # FourLeptonAnalyzer or TwoLeptonAnalyzer
 # by uncommenting the appropiate line below. 
 
-#from OutreachExercise2010.DecaysToLeptons.FourLeptonAnalyzer import FourLeptonAnalyzer as MyAnalyzer
-from OutreachExercise2010.DecaysToLeptons.TwoLeptonAnalyzer import TwoLeptonAnalyzer as MyAnalyzer
+#from OutreachExercise2011.DecaysToLeptons.FourLeptonAnalyzer import FourLeptonAnalyzer as MyAnalyzer
+from OutreachExercise2011.DecaysToLeptons.TwoLeptonAnalyzer import TwoLeptonAnalyzer as MyAnalyzer
 ``` 
 
 The number of events to be analyzed can be modified in the run.py file.
@@ -111,7 +107,7 @@ You can exit the ipython session by typing exit() or ctrl+d.
 
 Events selection can be modified in the FourLeptonAnalyzer.py and TwoLeptonAnalyzer.py codes:
 ```
-OutreachExercise2010/DecaysToLeptons/python/FourLeptonAnalyzer.py
-OutreachExercise2010/DecaysToLeptons/python/TwoLeptonAnalyzer.py
+OutreachExercise2011/DecaysToLeptons/python/FourLeptonAnalyzer.py
+OutreachExercise2011/DecaysToLeptons/python/TwoLeptonAnalyzer.py
 ```
 
