@@ -27,7 +27,7 @@ from OutreachExercise2011.DecaysToLeptons.sources import sources
 # by uncommenting the appropiate line below. 
 
 #from OutreachExercise2011.DecaysToLeptons.FourLeptonAnalyzer import FourLeptonAnalyzer as MyAnalyzer
-from OutreachExercise2010.DecaysToLeptons.TwoLeptonAnalyzer import TwoLeptonAnalyzer as MyAnalyzer
+from OutreachExercise2011.DecaysToLeptons.TwoLeptonAnalyzer import TwoLeptonAnalyzer as MyAnalyzer
 
 analyzer = MyAnalyzer()
 
