@@ -8,7 +8,7 @@ b) the FourLeptons analysis: ZZ -> llll
 
 Both examples exercises read 2011 data, but not directly in the AOD format.
 
-The exercise runs over derived datasets created following the Physics Analysis Toolkit (pattuples) from the 2011 AOD data. 
+The exercise runs over derived datasets created in the PAT (Physics Analysis Toolkit) format (pattuples) from the 2011 AOD data. 
 More details on the pattuples generation are in the pattuple repository:
 https://github.com/katilp/pattuples2011
 
