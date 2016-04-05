@@ -20,18 +20,18 @@
 from OutreachExercise2011.DecaysToLeptons.Sample import Sample
 
 data_files = [
-        'root://eospublic.cern.ch//eos/opendata/cms/Run2011A/DoubleMu/PATtuples/Mu_PAT_data_500files_1.root',
-        'root://eospublic.cern.ch//eos/opendata/cms/Run2011A/DoubleMu/PATtuples/Mu_PAT_data_500files_2.root',
-        'root://eospublic.cern.ch//eos/opendata/cms/Run2011A/DoubleMu/PATtuples/Mu_PAT_data_500files_3.root',
-        'root://eospublic.cern.ch//eos/opendata/cms/Run2011A/DoubleMu/PATtuples/Mu_PAT_data_500files_4.root',
-        'root://eospublic.cern.ch//eos/opendata/cms/Run2011A/DoubleMu/PATtuples/Mu_PAT_data_500files_5.root',
-        'root://eospublic.cern.ch//eos/opendata/cms/Run2011A/DoubleMu/PATtuples/Mu_PAT_data_500files_6.root',
-        'root://eospublic.cern.ch//eos/opendata/cms/Run2011A/DoubleElectron/PATtuples/Electron_PAT_data_500files_1.root',
-        'root://eospublic.cern.ch//eos/opendata/cms/Run2011A/DoubleElectron/PATtuples/Electron_PAT_data_500files_2.root',
-        'root://eospublic.cern.ch//eos/opendata/cms/Run2011A/DoubleElectron/PATtuples/Electron_PAT_data_500files_3.root',
-        'root://eospublic.cern.ch//eos/opendata/cms/Run2011A/DoubleElectron/PATtuples/Electron_PAT_data_500files_4.root',
-        'root://eospublic.cern.ch//eos/opendata/cms/Run2011A/DoubleElectron/PATtuples/Electron_PAT_data_500files_5.root',
-        'root://eospublic.cern.ch//eos/opendata/cms/Run2011A/DoubleElectron/PATtuples/Electron_PAT_data_500files_6.root'
+        'root://eospublic.cern.ch//eos/opendata/cms/Run2011A/DoubleMu/PATtuples/Mu_PAT_data_500files_01.root',
+        'root://eospublic.cern.ch//eos/opendata/cms/Run2011A/DoubleMu/PATtuples/Mu_PAT_data_500files_02.root',
+        'root://eospublic.cern.ch//eos/opendata/cms/Run2011A/DoubleMu/PATtuples/Mu_PAT_data_500files_03.root',
+        'root://eospublic.cern.ch//eos/opendata/cms/Run2011A/DoubleMu/PATtuples/Mu_PAT_data_500files_04.root',
+        'root://eospublic.cern.ch//eos/opendata/cms/Run2011A/DoubleMu/PATtuples/Mu_PAT_data_500files_05.root',
+        'root://eospublic.cern.ch//eos/opendata/cms/Run2011A/DoubleMu/PATtuples/Mu_PAT_data_500files_06.root',
+        'root://eospublic.cern.ch//eos/opendata/cms/Run2011A/DoubleElectron/PATtuples/Electron_PAT_data_500files_01.root',
+        'root://eospublic.cern.ch//eos/opendata/cms/Run2011A/DoubleElectron/PATtuples/Electron_PAT_data_500files_02.root',
+        'root://eospublic.cern.ch//eos/opendata/cms/Run2011A/DoubleElectron/PATtuples/Electron_PAT_data_500files_03.root',
+        'root://eospublic.cern.ch//eos/opendata/cms/Run2011A/DoubleElectron/PATtuples/Electron_PAT_data_500files_04.root',
+        'root://eospublic.cern.ch//eos/opendata/cms/Run2011A/DoubleElectron/PATtuples/Electron_PAT_data_500files_05.root',
+        'root://eospublic.cern.ch//eos/opendata/cms/Run2011A/DoubleElectron/PATtuples/Electron_PAT_data_500files_06.root'
 ]
 
 data = Sample('data', False, data_files, 1)
