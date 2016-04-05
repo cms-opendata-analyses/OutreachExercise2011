@@ -69,7 +69,7 @@ for sample in sources:
 ```
 
 To get enough events in the plots, you would need to run over more events. That takes time.
-Run over at least 100000 events to get a nice plot for the two lepton example, and more for the four lepton example: you get a clear signal with 1000000 events in the plot for the two lepton example. 
+Run over at least 100000 events to get a nice plot for the two lepton example, and more for the four lepton example.
 
 Then, just run your analysis in a interactive mode:
 
