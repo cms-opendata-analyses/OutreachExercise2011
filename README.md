@@ -41,6 +41,7 @@ The path to the pattuples is giving in the file:
 ```
 OutreachExercise2011/DecaysToLeptons/python/sources.py
 ``` 
+By defalt, it contains all pattuples files for electron and muon from 2011 data available on the CERN Open Data Portal. 
 
 To run the code you have to move to the directory:
 
@@ -85,11 +86,10 @@ python run.py
 At the beginning you will get a message like: 
 
 ```python
-FIXME
 Processing Files
-['root://eospublic.cern.ch//eos/opendata/cms/Run2010B/Mu/PATtuples/Mu_PAT_data_500files_1.root', 'root://eospublic.cern.ch//eos/opendata/cms/Run2010B/Mu/PATtuples/Mu_PAT_data_500files_2.root', 'root://eospublic.cern.ch//eos/opendata/cms/Run2010B/Mu/PATtuples/Mu_PAT_data_500files_3.root', 'root://eospublic.cern.ch//eos/opendata/cms/Run2010B/Mu/PATtuples/Mu_PAT_data_500files_4.root', 'root://eospublic.cern.ch//eos/opendata/cms/Run2010B/Mu/PATtuples/Mu_PAT_data_500files_5.root', 'root://eospublic.cern.ch//eos/opendata/cms/Run2010B/Mu/PATtuples/Mu_PAT_data_500files_6.root', 'root://eospublic.cern.ch//eos/opendata/cms/Run2010B/Electron/PATtuples/Electron_PAT_data_500files_1.root', 'root://eospublic.cern.ch//eos/opendata/cms/Run2010B/Electron/PATtuples/Electron_PAT_data_500files_2.root', 'root://eospublic.cern.ch//eos/opendata/cms/Run2010B/Electron/PATtuples/Electron_PAT_data_500files_3.root', 'root://eospublic.cern.ch//eos/opendata/cms/Run2010B/Electron/PATtuples/Electron_PAT_data_500files_4.root', 'root://eospublic.cern.ch//eos/opendata/cms/Run2010B/Electron/PATtuples/Electron_PAT_data_500files_5.root', 'root://eospublic.cern.ch//eos/opendata/cms/Run2010B/Electron/PATtuples/Electron_PAT_data_500files_6.root']
-1 events processed in 28.4234111309 seconds
-100 events processed in 49.6256351471 seconds
+['root://eospublic.cern.ch//eos/opendata/cms/... ]
+1 events processed in ... seconds
+100 events processed in ... seconds
 [...]
 In [1]: 
 ```
