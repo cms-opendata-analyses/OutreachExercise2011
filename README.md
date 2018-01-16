@@ -10,7 +10,7 @@ Both examples exercises read 2011 data, but not directly in the AOD format.
 
 The exercise runs over derived datasets created in the PAT (Physics Analysis Toolkit) format (pattuples) from the 2011 AOD data. 
 More details on the pattuples generation are in the pattuple repository:
-https://github.com/katilp/pattuples2011
+https://github.com/cms-opendata-analyses/pattuples2011
 
 From now on it is assumed that you will work on a VM properly contextualized for CMS, available from http://opendata.cern.ch/VM/CMS.
 
@@ -22,7 +22,7 @@ This step is only needed the first time (cmsrel command is needed only if you ha
 cmsrel CMSSW_5_3_32
 cd CMSSW_5_3_32/src
 cmsenv
-git clone https://github.com/katilp/OutreachExercise2011.git
+git clone https://github.com/cms-opendata-analyses/OutreachExercise2011.git
 scram b 
 ```
 
