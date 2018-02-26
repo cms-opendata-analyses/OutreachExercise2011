@@ -22,7 +22,7 @@ This step is only needed the first time (cmsrel command is needed only if you ha
 cmsrel CMSSW_5_3_32
 cd CMSSW_5_3_32/src
 cmsenv
-git clone https://github.com/cms-opendata-analyses/OutreachExercise2011.git
+git clone git://github.com/cms-opendata-analyses/OutreachExercise2011.git
 scram b 
 ```
 
